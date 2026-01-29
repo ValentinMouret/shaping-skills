@@ -303,7 +303,7 @@ flowchart TB
 | Code affordances | Grey | `#d3d3d3` |
 | Component references | Lavender | `#e6e6fa` |
 
-```mermaid
+```
 classDef ui fill:#ffb6c1,stroke:#d87093,color:#000
 classDef nonui fill:#d3d3d3,stroke:#808080,color:#000
 classDef component fill:#e6e6fa,stroke:#9370db,color:#000
