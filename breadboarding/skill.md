@@ -396,9 +396,37 @@ If it's just the "how" — skip it and wire directly to the destination or outco
 
 The handler navigates to P3. The callback writes to the store. The modal IS P3. The mechanisms are implicit.
 
-### Every U needs an N
+### Two flows: Navigation and Data
 
-A UI affordance can't appear unless something generates it. If a U has no N feeding it, either add the N or question whether the U is real.
+A breadboard captures two distinct flows:
+
+| Flow | What it tracks | Wiring |
+|------|----------------|--------|
+| **Navigation** | Movement from Place to Place | Wires Out → Places |
+| **Data** | How state populates displays | Returns To → Us |
+
+These are orthogonal. You can have navigation without data changes, and data changes without navigation.
+
+**When reviewing a breadboard, trace both flows:**
+
+1. **Navigation flow:** Can you follow the user's journey from Place to Place?
+2. **Data flow:** For every U that displays data, can you trace where that data comes from?
+
+### Every U that displays data needs a source
+
+A UI affordance that displays data must have something feeding it — either a data store (S) or a code affordance (N) that returns data.
+
+```
+❌ U6: letter list (no incoming wire — where does the data come from?)
+✅ S1 -.-> U6 (store feeds the display)
+✅ N4 -.-> U6 (query result feeds the display)
+```
+
+If a display U has no data source wiring into it, either:
+1. The source is missing from the breadboard
+2. The U isn't real
+
+This is easy to miss when focused on navigation. Always ask: "This U shows data — where does that data come from?"
 
 ### Every N must connect
 
