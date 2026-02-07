@@ -147,6 +147,7 @@ When a nested place has lots of internal affordances and would clutter the paren
 The reference is a **UI affordance** — it represents "this widget/component renders here" in the parent context.
 
 ```mermaid
+flowchart TB
 subgraph P1["P1: CMS Page (Read Mode)"]
     U1["U1: Edit button"]
     U_LB["_letter-browser"]
@@ -188,6 +189,7 @@ P4: letter-browser (Edit)    — contains _letter-browser (Read) + new affordanc
 The reference shows composition: "everything in P3 appears here, plus these additions."
 
 ```mermaid
+flowchart TB
 subgraph P3["P3: letter-browser (Read)"]
     U10["U10: Search input"]
     U11["U11: Letter list"]
@@ -237,11 +239,12 @@ In affordance tables, use the subplace ID to show containment:
 **In Mermaid:** Nest the subplace subgraph inside the parent. Use the same background color (no distinct fill) — the subplace is part of the parent, not a separate Place:
 
 ```mermaid
+flowchart TB
 subgraph P2["P2: Dashboard"]
-    subgraph P2.1["P2.1: Sales widget"]
+    subgraph P2_1["P2.1: Sales widget"]
         U3["U3: Refresh button"]
     end
-    subgraph P2.2["P2.2: Activity feed"]
+    subgraph P2_2["P2.2: Activity feed"]
         U7["U7: activity list"]
     end
     otherContent[["... other dashboard content ..."]]
@@ -284,7 +287,7 @@ When an affordance causes navigation (user "goes" somewhere), wire to the **Plac
 This makes navigation explicit in the tables. The Place is the destination; specific affordances inside become available once you arrive.
 
 In Mermaid, this becomes:
-```mermaid
+```
 N1 --> P2
 ```
 
@@ -568,6 +571,7 @@ An N that appears to wire nowhere is suspicious. If it has **side effects outsid
 This makes the data flow explicit. The store can also have return wires showing how external state flows back in:
 
 ```mermaid
+flowchart TB
 N42["N42: performSearch()"] --> N41["N41: updateUrl()"]
 N41 --> S15["S15: Browser URL (?q=)"]
 S15 -.->|back button / init| N40["N40: activeQuery$"]
@@ -715,44 +719,48 @@ dynamicForm -.->|valid$| U8
 ### How to Chunk
 
 1. **In the main diagram**, replace the subsystem with a single stadium-shaped node:
-   ```mermaid
-   dynamicForm[["CHUNK: dynamic-form"]]
-   ```
+
+```
+dynamicForm[["CHUNK: dynamic-form"]]
+```
 
 2. **Wire to/from the chunk** using the boundary signals:
-   ```mermaid
-   N24 -->|formDefinition| dynamicForm
-   dynamicForm -.->|valid$| U8
-   ```
+
+```
+N24 -->|formDefinition| dynamicForm
+dynamicForm -.->|valid$| U8
+```
 
 3. **Create a separate chunk diagram** showing the internals with boundary markers:
-   ```mermaid
-   flowchart TB
-       input([formDefinition])
-       output([valid$])
 
-       subgraph chunk["dynamic-form internals"]
-           N25["N25: generateFormConfig()"]
-           U7a["U7a: field"]
-           N26["N26: form value changes"]
-           N27["N27: valid$ emission"]
-       end
+```mermaid
+flowchart TB
+    input([formDefinition])
+    output(["valid$"])
 
-       input --> N25
-       N25 --> U7a
-       U7a --> N26
-       N26 --> N27
-       N27 --> output
+    subgraph chunk["dynamic-form internals"]
+        N25["N25: generateFormConfig()"]
+        U7a["U7a: field"]
+        N26["N26: form value changes"]
+        N27["N27: valid$ emission"]
+    end
 
-       classDef boundary fill:#b3e5fc,stroke:#0288d1,stroke-dasharray:5 5
-       class input,output boundary
-   ```
+    input --> N25
+    N25 --> U7a
+    U7a --> N26
+    N26 --> N27
+    N27 --> output
+
+    classDef boundary fill:#b3e5fc,stroke:#0288d1,stroke-dasharray:5 5
+    class input,output boundary
+```
 
 4. **Style chunks distinctly** in the main diagram:
-   ```
-   classDef chunk fill:#b3e5fc,stroke:#0288d1,color:#000,stroke-width:2px
-   class dynamicForm chunk
-   ```
+
+```
+classDef chunk fill:#b3e5fc,stroke:#0288d1,color:#000,stroke-width:2px
+class dynamicForm chunk
+```
 
 ### Chunk Color Convention
 
@@ -805,7 +813,7 @@ flowchart TB
 
 When a data flow has intermediate steps that aren't relevant to the breadboard's scope, abbreviate by wiring directly from source to destination with a `...` label:
 
-```mermaid
+```
 S4 -.->|...| U6
 ```
 
@@ -847,6 +855,7 @@ classDef placeRef fill:#ffb6c1,stroke:#d87093,stroke-width:2px,stroke-dasharray:
 Use the Place ID as the subgraph ID so navigation wiring connects properly:
 
 ```mermaid
+flowchart TB
 subgraph P1["P1: CMS Page (Read Mode)"]
     U1["U1: Edit button"]
     N1["N1: toggleEditMode()"]
