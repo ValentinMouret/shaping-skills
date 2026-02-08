@@ -1,0 +1,18 @@
+{
+  "name": "shaping-marketplace",
+  "description": "Shaping skills for collaborative product design",
+  "owner": {
+    "name": "Ryan Singer"
+  },
+  "plugins": [
+    {
+      "name": "shaping",
+      "description": "Shaping methodology and breadboarding for collaborative product design",
+      "version": "1.0.0",
+      "author": {
+        "name": "Ryan Singer"
+      },
+      "source": "./plugins/shaping"
+    }
+  ]
+}
