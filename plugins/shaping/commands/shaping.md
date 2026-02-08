@@ -1,5 +1,4 @@
 ---
-name: shaping
 description: Use this methodology when collaboratively shaping a solution with the user - iterating on problem definition (requirements) and solution options (shapes).
 ---
 

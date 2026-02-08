@@ -1,5 +1,4 @@
 ---
-name: breadboarding
 description: Transform a workflow description into affordance tables showing UI and Code affordances with their wiring. Use to map existing systems or design new ones from shaped parts.
 ---
 
